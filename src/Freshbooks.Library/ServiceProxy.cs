@@ -73,14 +73,14 @@ namespace Freshbooks.Library
                     writer.Flush();
                 }
                 string xmlRequest = sw.ToString();
-                System.Diagnostics.Debug.WriteLine(xmlRequest, _api.AccountName);
+                //System.Diagnostics.Debug.WriteLine(xmlRequest, _api.AccountName);
                 return xmlRequest;
             }
         }
 
         private void ParseResponse(string xmlResponse, IBuilder builder)
         {
-            System.Diagnostics.Debug.WriteLine(xmlResponse, _api.AccountName);
+            //System.Diagnostics.Debug.WriteLine(xmlResponse, _api.AccountName);
 
             using (XmlReader xrdr = XmlReader.Create(new StringReader(xmlResponse)))
             {
