@@ -10,7 +10,8 @@
                 if (_settings != null)
                     return _settings;
 
-                if (Properties.Settings.Default.ShowSettings)
+                _settings = Properties.Settings.Default;
+                if (_settings.ShowSettings)
                 {
                     using(SettingsForm dlg = new SettingsForm())
                         if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -20,7 +21,6 @@
                         }
                 }
 
-                _settings = Properties.Settings.Default;
                 return _settings;
             }
         }
