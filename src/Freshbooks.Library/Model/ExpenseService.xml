@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NClassify xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xsi:noNamespaceSchemaLocation="NClassifyConfig.xsd">
+  <!-- Includes -->
+  <settings src="Common.xml" />
+  <import file="Common.xml" />
+  <!-- Messages -->
+  <message name="ExpenseIdentity">
+    <fields>
+      <value name="expense_id" ordinal="1" use="required" type="expense_id" />
+    </fields>
+  </message>
+  <message name="Expense">
+    <fields>
+      <value name="expense_id" ordinal="1" type="expense_id" />
+      <value name="staff_id" ordinal="10" type="staff_id" use="required" />
+      <value name="category_id" ordinal="11" type="category_id" use="required" />
+      <value name="project_id" ordinal="12" type="project_id" />
+      <value name="client_id" ordinal="13" type="client_id" />
+      
+      <primitive name="amount" ordinal="21" type="double" use="required" />
+      <primitive name="vendor" ordinal="25" type="string" />
+      <primitive name="date" ordinal="22" type="dateTime" />
+      <primitive name="notes" ordinal="23" type="string" />
+      <value name="folder" ordinal="24" type="folder_type" direction="read-only" />
+      <primitive name="status" ordinal="26" type="string" direction="read-only" />
+      
+      <primitive name="tax1_name" ordinal="30" type="string" />
+      <primitive name="tax1_percent" ordinal="31" type="double" />
+      <primitive name="tax1_amount" ordinal="32" type="double" />
+      
+      <primitive name="tax2_name" ordinal="33" type="string" />
+      <primitive name="tax2_percent" ordinal="34" type="double" />
+      <primitive name="tax2_amount" ordinal="35" type="double" />
+      
+      <primitive name="compound_tax" ordinal="41" type="double" />
+      <primitive name="has_receipt" ordinal="42" type="bool" />
+    </fields>
+  </message>
+  <message name="ExpenseRequest">
+    <fields>
+      <message name="expense" ordinal="1" use="required" type="Expense" />
+    </fields>
+  </message>
+  <message name="ExpenseResponse">
+    <fields>
+      <message name="expense" ordinal="1" use="required" type="Expense" direction="read-only" />
+    </fields>
+  </message>
+  <message name="Expenses" inherits="PaginatedResponse">
+    <fields>
+      <message name="expense" ordinal="10" array="true" type="Expense" direction="read-only" />
+    </fields>
+  </message>
+  <message name="ExpensesResponse">
+    <fields>
+      <message name="expenses" ordinal="1" use="required" type="Expenses" direction="read-only" />
+    </fields>
+  </message>
+  <message name="ExpensesRequest" inherits="PaginatedRequest">
+    <fields>
+      <value name="client_id" ordinal="10" type="client_id" />
+      <value name="folder" ordinal="11" type="folder_type" />
+      <primitive name="date_from" ordinal="12" type="dateTime" />
+      <primitive name="date_to" ordinal="13" type="dateTime" />
+    </fields>
+  </message>
+  <service name="ExpenseService">
+    <method name="create" returns="ExpenseIdentity" argument="ExpenseRequest" />
+    <method name="update" argument="ExpenseRequest" />
+    <method name="get" returns="ExpenseResponse" argument="ExpenseIdentity" />
+    <method name="delete" argument="ExpenseIdentity" />
+    <method name="list" returns="ExpensesResponse" argument="ExpensesRequest" />
+  </service>
+</NClassify>

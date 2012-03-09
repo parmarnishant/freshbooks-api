@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NClassify xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xsi:noNamespaceSchemaLocation="NClassifyConfig.xsd">
+  <!-- Includes -->
+  <settings src="Common.xml" />
+  <import file="Common.xml" />
+  <!-- Messages -->
+  <message name="EstimateIdentity">
+    <fields>
+      <value name="estimate_id" ordinal="1" use="required" type="estimate_id" />
+    </fields>
+  </message>
+  <message name="Estimate" inherits="ClientBill">
+    <fields>
+      <value name="estimate_id" ordinal="1" type="estimate_id" />
+      <primitive name="date" ordinal="21" type="dateTime" />
+    </fields>
+  </message>
+  <message name="EstimateRequest">
+    <fields>
+      <message name="estimate" ordinal="1" type="Estimate" use="required" />
+    </fields>
+  </message>
+  <message name="EstimateResponse">
+    <fields>
+      <message name="estimate" ordinal="1" type="Estimate" use="required" direction="read-only" />
+    </fields>
+  </message>
+  <message name="Estimates" inherits="PaginatedResponse">
+    <fields>
+      <message name="estimate" ordinal="10" array="true" type="Estimate" direction="read-only" />
+    </fields>
+  </message>
+  <message name="EstimatesResponse">
+    <fields>
+      <message name="estimates" ordinal="1" type="Estimates" use="required" direction="read-only" />
+    </fields>
+  </message>
+  <message name="EstimatesRequest" inherits="PaginatedRequest">
+    <fields>
+      <value name="client_id" ordinal="10" type="client_id" />
+      <value name="folder" ordinal="11" type="folder_type" />
+      <primitive name="date_from" ordinal="12" type="dateTime" />
+      <primitive name="date_to" ordinal="13" type="dateTime" />
+    </fields>
+  </message>
+  <message name="EstimateEmailRequest">
+    <fields>
+      <value name="estimate_id" ordinal="1" use="required" type="estimate_id" />
+      <primitive name="subject" ordinal="2" use="required" type="string" />
+      <primitive name="message" ordinal="3" use="required" type="string" />
+    </fields>
+  </message>
+  <service name="EstimateService">
+    <method name="create" returns="EstimateIdentity" argument="EstimateRequest" />
+    <method name="update" argument="EstimateRequest" />
+    <method name="get" returns="EstimateResponse" argument="EstimateIdentity" />
+    <method name="delete" argument="EstimateIdentity" />
+    <method name="list" returns="EstimatesResponse" argument="EstimatesRequest" />
+    <method name="sendByEmail" argument="EstimateEmailRequest" />
+  </service>
+</NClassify>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NClassify xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xsi:noNamespaceSchemaLocation="NClassifyConfig.xsd">
+  <!-- Includes -->
+  <settings src="Common.xml" />
+  <import file="Common.xml" />
+  <!-- Messages -->
+  <message name="CategoryIdentity">
+    <fields>
+      <value name="category_id" ordinal="1" type="category_id" use="required" />
+    </fields>
+  </message>
+  <message name="Category">
+    <fields>
+      <value name="category_id" ordinal="4" type="category_id" />
+      <primitive name="name" ordinal="5" type="string" use="required" />
+    </fields>
+  </message>
+  <message name="CategoryRequest">
+    <fields>
+      <message name="category" ordinal="1" type="Category" use="required" />
+    </fields>
+  </message>
+  <message name="CategoryResponse">
+    <fields>
+      <message name="category" ordinal="1" type="Category" use="required" direction="read-only" />
+    </fields>
+  </message>
+  <message name="Categories" inherits="PaginatedResponse">
+    <fields>
+      <message name="category" ordinal="10" array="true" type="Category" use="required" direction="read-only" />
+    </fields>
+  </message>
+  <message name="CategoriesResponse">
+    <fields>
+      <message name="categories" ordinal="1" type="Categories" use="required" direction="read-only" />
+    </fields>
+  </message>
+  <message name="CategoriesRequest" inherits="PaginatedRequest">
+    <fields>
+    </fields>
+  </message>
+  <service name="CategoryService">
+    <method name="create" returns="CategoryIdentity" argument="CategoryRequest" />
+    <method name="update" argument="CategoryRequest" />
+    <method name="get" returns="CategoryResponse" argument="CategoryIdentity" />
+    <method name="delete" argument="CategoryIdentity" />
+    <method name="list" returns="CategoriesResponse" argument="CategoriesRequest" />
+  </service>
+</NClassify>

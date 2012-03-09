@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NClassify xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xsi:noNamespaceSchemaLocation="NClassifyConfig.xsd">
+  <!-- Includes -->
+  <settings src="Common.xml" />
+  <import file="Common.xml" />
+  <!-- Messages -->
+  <message name="TimeEntryIdentity">
+    <fields>
+      <value name="time_entry_id" ordinal="1" use="required" type="time_entry_id" />
+    </fields>
+  </message>
+  <message name="TimeEntry">
+    <fields>
+      <value name="time_entry_id" ordinal="1" type="time_entry_id" />
+      
+      <value name="project_id" ordinal="2" type="project_id" use="required" />
+      <value name="task_id" ordinal="3" type="task_id" use="required" />
+      <value name="staff_id" ordinal="4" type="staff_id" />
+
+      <primitive name="hours" ordinal="21" type="timeSpan">
+        <xml-options format="{9:f}" />
+      </primitive>
+      <primitive name="notes" ordinal="11" type="string" />
+      <primitive name="date" ordinal="23" type="dateTime">
+        <xml-options format="yyyy-MM-dd"/>
+      </primitive>
+      <primitive name="billed" ordinal="25" type="bool" direction="read-only" />
+    </fields>
+  </message>
+  <message name="TimeEntryRequest">
+    <fields>
+      <message name="time_entry" ordinal="1" use="required" type="TimeEntry" />
+    </fields>
+  </message>
+  <message name="TimeEntryResponse">
+    <fields>
+      <message name="time_entry" ordinal="1" use="required" type="TimeEntry" />
+    </fields>
+  </message>
+  <message name="TimeEntries" inherits="PaginatedResponse">
+    <fields>
+      <message name="time_entry" ordinal="10" array="true" type="TimeEntry" direction="read-only" />
+    </fields>
+  </message>
+  <message name="TimeEntriesResponse">
+    <fields>
+      <message name="time_entries" ordinal="1" use="required" type="TimeEntries" direction="read-only" />
+    </fields>
+  </message>
+  <message name="TimeEntriesRequest" inherits="PaginatedRequest">
+    <fields>
+      <primitive name="date_from" ordinal="10" type="dateTime" />
+      <primitive name="date_to" ordinal="11" type="dateTime" />
+
+      <value name="project_id" ordinal="12" type="project_id" />
+      <value name="task_id" ordinal="13" type="task_id" />
+    </fields>
+  </message>
+  <service name="TimeEntryService">
+    <method name="create" returns="TimeEntryIdentity" argument="TimeEntryRequest" />
+    <method name="update" argument="TimeEntryRequest" />
+    <method name="get" returns="TimeEntryResponse" argument="TimeEntryIdentity" />
+    <method name="delete" argument="TimeEntryIdentity" />
+    <method name="list" returns="TimeEntriesResponse" argument="TimeEntriesRequest" />
+  </service>
+</NClassify>

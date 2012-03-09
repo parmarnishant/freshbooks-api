@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NClassify xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xsi:noNamespaceSchemaLocation="NClassifyConfig.xsd">
+  <!-- Includes -->
+  <settings src="Common.xml" />
+  <import file="Common.xml" />
+  <!-- Messages -->
+  <message name="Language">
+    <fields>
+      <primitive name="code" ordinal="1" type="string" use="required" direction="read-only"/>
+      <primitive name="name" ordinal="2" type="string" use="required" direction="read-only"/>
+    </fields>
+  </message>
+  <message name="Languages" inherits="PaginatedResponse">
+    <fields>
+      <message name="language" ordinal="10" array="true" type="Language" direction="read-only" />
+    </fields>
+  </message>
+  <message name="LanguagesResponse">
+    <fields>
+      <message name="languages" ordinal="1" use="required" type="Languages" direction="read-only" />
+    </fields>
+  </message>
+  <message name="LanguagesRequest" inherits="PaginatedRequest" />
+  <service name="LanguageService">
+    <method name="list" returns="LanguagesResponse" argument="LanguagesRequest" />
+  </service>
+</NClassify>

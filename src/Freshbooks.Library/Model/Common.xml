@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NClassify xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xsi:noNamespaceSchemaLocation="NClassifyConfig.xsd">
+
+  <settings>
+
+    <xml-defaults>
+      <formatting type="bool" format="1|0" ignore-empty="true" />
+      <formatting type="dateTime" format="yyyy-MM-dd HH:mm:ss" culture="invariant" ignore-empty="true" />
+
+      <formatting type="float" ignore-empty="true"/>
+      <formatting type="double" ignore-empty="true"/>
+      <formatting type="int64" ignore-empty="true"/>
+      <formatting type="uint64" ignore-empty="true"/>
+      <formatting type="int32" ignore-empty="true"/>
+      <formatting type="uint32" ignore-empty="true"/>
+    </xml-defaults>
+
+  </settings>
+  
+  <!-- Errors -->
+  <message name="ErrorResponse">
+    <fields>
+      <primitive name="error" ordinal="1" array="true" type="string" />
+      <primitive name="code" ordinal="2" type="int64" />
+    </fields>
+  </message>
+  
+  <!-- Value Types -->
+  <value name="url" base="string">
+    <validation>
+      <length min="8" max="2048" />
+      <match ignoreCase="true" pattern="^https?\://.+" />
+      <code language="C#" test="IsValidUri(value)">
+        <method>
+          global::System.Uri tmp;
+          return global::System.Uri.TryCreate(value, global::System.UriKind.Absolute, out tmp);
+        </method>
+      </code>
+    </validation>
+  </value>
+
+  <value name="currency_code" base="string">
+    <validation>
+      <match pattern="[A-Z]{3}"/>
+    </validation>
+  </value>
+
+  <value name="folder_type" base="string">
+    <validation>
+      <predefined>
+        <value>active</value>
+        <value>archived</value>
+        <value>deleted</value>
+      </predefined>
+    </validation>
+  </value>
+  
+  <!-- Entity Identities -->
+
+  <value base="uint64" name="callback_id">
+    <validation><range min="1"/></validation>
+  </value>
+
+  <value base="uint64" name="category_id">
+    <validation><range min="1"/></validation>
+  </value>
+
+  <value base="uint64" name="client_id">
+    <validation><range min="1"/></validation>
+  </value>
+  
+  <value base="uint64" name="contact_id">
+    <validation><range min="1"/></validation>
+  </value>
+
+  <value base="uint64" name="estimate_id">
+    <validation><range min="1"/></validation>
+  </value>
+
+  <value base="uint64" name="expense_id">
+    <validation><range min="1"/></validation>
+  </value>
+
+  <value base="uint64" name="invoice_id">
+    <validation><range min="1"/></validation>
+  </value>
+
+  <value base="uint64" name="item_id">
+    <validation><range min="1"/></validation>
+  </value>
+
+  <value base="uint64" name="line_id">
+    <validation><range min="1"/></validation>
+  </value>
+
+  <value base="uint64" name="payment_id">
+    <validation><range min="1"/></validation>
+  </value>
+
+  <value base="uint64" name="project_id">
+    <validation><range min="1"/></validation>
+  </value>
+
+  <value base="uint64" name="recurring_id">
+    <validation><range min="1"/></validation>
+  </value>
+
+  <value base="uint64" name="staff_id">
+    <validation><range min="1"/></validation>
+  </value>
+
+  <value base="uint64" name="task_id">
+    <validation><range min="1"/></validation>
+  </value>
+
+  <value base="uint64" name="tax_id">
+    <validation><range min="1"/></validation>
+  </value>
+
+  <value base="uint64" name="time_entry_id">
+    <validation><range min="1"/></validation>
+  </value>
+  
+  <!-- Pagination -->
+
+  <message name="PaginatedRequest">
+    <fields>
+      <primitive name="page" ordinal="1" type="uint32">
+        <validation>
+          <range min="1"/>
+        </validation>
+      </primitive>
+      <primitive name="per_page" ordinal="2" type="uint32">
+        <validation>
+          <range min="1"/>
+        </validation>
+      </primitive>
+    </fields>
+  </message>
+
+  <message name="PaginatedResponse">
+    <fields>
+      <primitive name="page" ordinal="1" type="uint32" direction="read-only">
+        <validation>
+          <range min="1"/>
+        </validation>
+      </primitive>
+      <primitive name="per_page" ordinal="2" type="uint32" direction="read-only">
+        <validation>
+          <range min="1"/>
+        </validation>
+      </primitive>
+      <primitive name="pages" ordinal="3" type="uint32" direction="read-only" />
+      <primitive name="total" ordinal="4" type="uint32" direction="read-only" />
+    </fields>
+  </message>
+
+  <!-- Common Messages -->
+
+  <message name="ClientBill">
+    <fields>
+      <value name="client_id" ordinal="2" type="client_id" use="required" />
+      <message name="contacts" ordinal="3" type="ContactIdentities" />
+
+      <primitive name="number" ordinal="11" type="string" direction="read-only" />
+      <value name="staff_id" ordinal="12" type="staff_id" direction="read-only" />
+      <value name="folder" ordinal="13" type="folder_type" direction="read-only" />
+      <primitive name="status" ordinal="14" type="string" direction="read-only" />
+      <primitive name="amount" ordinal="15" type="double" direction="read-only" />
+
+      <primitive name="po_number" ordinal="22" type="string" />
+      <primitive name="discount" ordinal="23" type="double" />
+      <value name="currency_code" ordinal="24" type="currency_code" />
+      <primitive name="language" ordinal="25" type="string" />
+      <primitive name="notes" ordinal="26" type="string" />
+      <primitive name="terms" ordinal="27" type="string" />
+
+      <primitive name="first_name" ordinal="31" type="string" />
+      <primitive name="last_name" ordinal="32" type="string" />
+      <primitive name="organization" ordinal="33" type="string" />
+      
+      <primitive name="p_street1" ordinal="41" type="string" />
+      <primitive name="p_street2" ordinal="42" type="string" />
+      <primitive name="p_city" ordinal="43" type="string" />
+      <primitive name="p_state" ordinal="44" type="string" />
+      <primitive name="p_country" ordinal="45" type="string" />
+      <primitive name="p_code" ordinal="46" type="string" />
+
+      <primitive name="vat_name" ordinal="51" type="string" />
+      <primitive name="vat_number" ordinal="52" type="string" />
+
+      <message name="links" ordinal="61" type="Links" direction="read-only" />
+      <message name="lines" ordinal="62" type="LineItems" />
+    </fields>
+  </message>
+  
+  <message name="ContactIdentity">
+    <fields>
+      <value name="contact_id" ordinal="1" use="required" type="contact_id" />
+    </fields>
+  </message>
+  <message name="ContactIdentities">
+    <fields>
+      <message name="contact" ordinal="1" array="true" type="ContactIdentity" />
+    </fields>
+  </message>
+
+  <message name="Links">
+    <fields>
+      <value name="client_view" ordinal="1" type="url" />
+      <value name="view" ordinal="2" type="url" />
+      <value name="edit" ordinal="3" type="url" />
+      <value name="statement" ordinal="4" type="url" />
+    </fields>
+  </message>
+  
+  <message name="LineItem">
+    <fields>
+      <value name="line_id" ordinal="1" type="line_id" />
+      <primitive name="name" ordinal="2" type="string" />
+      <primitive name="description" ordinal="3" type="string" />
+
+      <primitive name="unit_cost" ordinal="4" type="double">
+        <validation>
+          <range min="0"/>
+        </validation>
+      </primitive>
+      <primitive name="quantity" ordinal="5" type="double">
+        <validation>
+          <range min="0"/>
+        </validation>
+      </primitive>
+      <primitive name="amount" ordinal="6" type="double" direction="read-only" />
+
+      <primitive name="tax1_name" ordinal="7" type="string" />
+      <primitive name="tax2_name" ordinal="8" type="string" />
+
+      <primitive name="tax1_percent" ordinal="9" type="double" />
+      <primitive name="tax2_percent" ordinal="10" type="double" />
+
+      <primitive name="type" ordinal="11" type="string" default="Item" />
+    </fields>
+  </message>
+  
+  <message name="LineItems">
+    <fields>
+      <message name="line" ordinal="1" array="true" type="LineItem" />
+    </fields>
+  </message>
+  
+</NClassify>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NClassify xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xsi:noNamespaceSchemaLocation="NClassifyConfig.xsd">
+  <!-- Includes -->
+  <settings src="Common.xml" />
+  <import file="Common.xml" />
+  <!-- Messages -->
+  <message name="Address">
+    <fields>
+      <primitive name="street1" ordinal="7" type="string" direction="read-only" />
+      <primitive name="street2" ordinal="8" type="string" direction="read-only" />
+      <primitive name="city" ordinal="9" type="string" direction="read-only" />
+      <primitive name="province" ordinal="10" type="string" direction="read-only" />
+      <primitive name="postal_code" ordinal="11" type="string" direction="read-only" />
+      <primitive name="country" ordinal="12" type="string" direction="read-only" />
+    </fields>
+  </message>
+  <message name="ApiInformation">
+    <fields>
+      <primitive name="requests" ordinal="15" type="int64" direction="read-only" />
+      <primitive name="request_limit" ordinal="16" type="int64" direction="read-only" />
+    </fields>
+  </message>
+  <message name="SystemInformation">
+    <fields>
+      <primitive name="company_name" ordinal="4" type="string" direction="read-only" />
+      <primitive name="profession" ordinal="5" type="string" direction="read-only" />
+      <message name="address" ordinal="6" type="Address" use="required" direction="read-only" />
+      <message name="api" ordinal="14" type="ApiInformation" use="required" direction="read-only" />
+    </fields>
+  </message>
+  <message name="SystemResponse">
+    <fields>
+      <message name="system" ordinal="14" type="SystemInformation" use="required" direction="read-only" />
+    </fields>
+  </message>
+  <service name="SystemService">
+    <method name="current" returns="SystemResponse" />
+  </service>
+</NClassify>

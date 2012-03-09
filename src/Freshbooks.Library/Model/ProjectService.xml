@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NClassify xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xsi:noNamespaceSchemaLocation="NClassifyConfig.xsd">
+  <!-- Includes -->
+  <settings src="Common.xml" />
+  <import file="Common.xml" />
+  <!-- Messages -->
+  <message name="ProjectIdentity">
+    <fields>
+      <value name="project_id" ordinal="1" use="required" type="project_id" />
+    </fields>
+  </message>
+  <message name="Project">
+    <fields>
+      <value name="project_id" ordinal="1" type="project_id" />
+      <primitive name="name" ordinal="2" type="string" use="required" />
+      <primitive name="bill_method" ordinal="3" type="string" use="required" default="project-rate">
+        <validation>
+          <predefined>
+            <value>task-rate</value>
+            <value>flat-rate</value>
+            <value>project-rate</value>
+            <value>staff-rate</value>
+          </predefined>
+        </validation>
+      </primitive>
+      <primitive name="description" ordinal="4" type="string" />
+      
+      <value name="client_id" ordinal="10" type="client_id" />
+      <primitive name="rate" ordinal="11" type="double" />
+      <primitive name="hour_budget" ordinal="12" type="double" />
+
+      <message name="tasks" ordinal="20" type="ProjectTasks" />
+      <message name="staff" ordinal="21" type="ProjectStaffList" />
+    </fields>
+  </message>
+  <message name="ProjectTask">
+    <fields>
+      <value name="task_id" ordinal="1" type="task_id" use="required" />
+      <primitive name="rate" ordinal="2" type="double" />
+    </fields>
+  </message>
+  <message name="ProjectTasks">
+    <fields>
+      <message name="task" ordinal="1" type="ProjectTask" array="true" />
+    </fields>
+  </message>
+  <message name="ProjectStaff">
+    <fields>
+      <value name="staff_id" ordinal="1" type="staff_id" use="required" />
+    </fields>
+  </message>
+  <message name="ProjectStaffList">
+    <fields>
+      <message name="staff" ordinal="1" type="ProjectStaff" array="true" />
+    </fields>
+  </message>
+  <message name="ProjectRequest">
+    <fields>
+      <message name="project" ordinal="1" use="required" type="Project" />
+    </fields>
+  </message>
+  <message name="ProjectResponse">
+    <fields>
+      <message name="project" ordinal="1" use="required" type="Project" />
+    </fields>
+  </message>
+  <message name="Projects" inherits="PaginatedResponse">
+    <fields>
+      <message name="project" ordinal="10" array="true" type="Project" direction="read-only" />
+    </fields>
+  </message>
+  <message name="ProjectsResponse">
+    <fields>
+      <message name="projects" ordinal="1" use="required" type="Projects" direction="read-only" />
+    </fields>
+  </message>
+  <message name="ProjectsRequest" inherits="PaginatedRequest">
+    <fields>
+      <value name="folder" ordinal="10" type="folder_type" />
+    </fields>
+  </message>
+  <service name="ProjectService">
+    <method name="create" returns="ProjectIdentity" argument="ProjectRequest" />
+    <method name="update" argument="ProjectRequest" />
+    <method name="get" returns="ProjectResponse" argument="ProjectIdentity" />
+    <method name="delete" argument="ProjectIdentity" />
+    <method name="list" returns="ProjectsResponse" argument="ProjectsRequest" />
+  </service>
+</NClassify>

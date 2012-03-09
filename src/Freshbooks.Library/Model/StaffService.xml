@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NClassify xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xsi:noNamespaceSchemaLocation="NClassifyConfig.xsd">
+  <!-- Includes -->
+  <settings src="Common.xml" />
+  <import file="Common.xml" />
+  <!-- Messages -->
+  <message name="StaffMemberIdentity">
+    <fields>
+      <value name="staff_id" ordinal="4" use="required" type="staff_id" />
+    </fields>
+  </message>
+  <message name="StaffMember">
+    <fields>
+      <value name="staff_id" ordinal="4" type="staff_id" />
+      <primitive name="username" ordinal="5" type="string" />
+      <primitive name="first_name" ordinal="6" type="string" />
+      <primitive name="last_name" ordinal="7" type="string" />
+      <primitive name="email" ordinal="8" type="string" />
+      <primitive name="business_phone" ordinal="9" type="string" />
+      <primitive name="mobile_phone" ordinal="10" type="string" />
+      <primitive name="rate" ordinal="11" type="double" />
+      <primitive name="last_login" ordinal="12" type="dateTime" />
+      <primitive name="number_of_logins" ordinal="13" type="uint64" />
+      <primitive name="signup_date" ordinal="14" type="dateTime" />
+      <primitive name="street1" ordinal="15" type="string" />
+      <primitive name="street2" ordinal="16" type="string" />
+      <primitive name="city" ordinal="17" type="string" />
+      <primitive name="state" ordinal="18" type="string" />
+      <primitive name="country" ordinal="19" type="string" />
+      <primitive name="code" ordinal="20" type="string" />
+    </fields>
+  </message>
+  <message name="StaffMemberResponse">
+    <fields>
+      <message name="staff" ordinal="1" use="required" type="StaffMember" />
+    </fields>
+  </message>
+  <message name="SelfRequest">
+    <fields />
+  </message>
+  <message name="StaffMembers" inherits="PaginatedResponse">
+    <fields>
+      <message name="member" ordinal="10" array="true" type="StaffMember" use="required" direction="read-only" />
+    </fields>
+  </message>
+  <message name="StaffMembersResponse">
+    <fields>
+      <message name="staff_members" ordinal="1" type="StaffMembers" use="required" direction="read-only" />
+    </fields>
+  </message>
+  <message name="StaffMembersRequest" inherits="PaginatedRequest" />
+  <service name="StaffService">
+    <method name="current" returns="StaffMemberResponse" />
+    <method name="get" returns="StaffMemberResponse" argument="StaffMemberIdentity" />
+    <method name="list" returns="StaffMembersResponse" argument="StaffMembersRequest" />
+  </service>
+</NClassify>

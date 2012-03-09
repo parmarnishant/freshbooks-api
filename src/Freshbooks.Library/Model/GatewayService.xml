@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NClassify xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xsi:noNamespaceSchemaLocation="NClassifyConfig.xsd">
+  <!-- Includes -->
+  <settings src="Common.xml" />
+  <import file="Common.xml" />
+  <!-- Messages -->
+  <message name="Gateway">
+    <fields>
+      <primitive name="name" ordinal="1" type="string" direction="read-only" />
+      <primitive name="autobill_capable" ordinal="2" type="bool" direction="read-only" />
+    </fields>
+  </message>
+  <message name="Gateways" inherits="PaginatedResponse">
+    <fields>
+      <message name="gateway" ordinal="10" array="true" type="Gateway" direction="read-only" />
+    </fields>
+  </message>
+  <message name="GatewaysResponse">
+    <fields>
+      <message name="gateways" ordinal="1" use="required" type="Gateways" direction="read-only" />
+    </fields>
+  </message>
+  <message name="GatewaysRequest" inherits="PaginatedRequest">
+    <fields>
+      <primitive name="autobill_capable" ordinal="10" type="bool" />
+    </fields>
+  </message>
+  <service name="GatewayService">
+    <method name="list" returns="GatewaysResponse" argument="GatewaysRequest" />
+  </service>
+</NClassify>

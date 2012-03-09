@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Freshbooks.Test.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="FreshbooksAccountName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{Account To Access}</Value>
+    </Setting>
+    <Setting Name="HttpCallbackPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">11001</Value>
+    </Setting>
+    <Setting Name="OAuthSecret" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{OAuth Secret Assigned for Developer Account}</Value>
+    </Setting>
+    <Setting Name="UserToken" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{Administrator Token for Account}</Value>
+    </Setting>
+    <Setting Name="ConsumerKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">{Developer Account Name}</Value>
+    </Setting>
+    <Setting Name="ShowSettings" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
