@@ -72,8 +72,8 @@
   <message name="InvoiceEmailRequest">
     <fields>
       <value name="invoice_id" ordinal="1" use="required" type="invoice_id" />
-      <primitive name="subject" ordinal="2" use="required" type="string" />
-      <primitive name="message" ordinal="3" use="required" type="string" />
+      <primitive name="subject" ordinal="2" type="string" />
+      <primitive name="message" ordinal="3" type="string" />
     </fields>
   </message>
   <service name="InvoiceService">

@@ -3180,16 +3180,8 @@ namespace Freshbooks.Library.Model
                 if (onError != null) onError(new global::NClassify.Library.ValidationError(TypeFields.InvoiceId, global::NClassify.Library.ResourceMessages.MissingRequiredField, TypeFields.InvoiceId));
                 errorCount++;
             }
-            if (!__has_subject)
-            {
-                if (onError != null) onError(new global::NClassify.Library.ValidationError(TypeFields.Subject, global::NClassify.Library.ResourceMessages.MissingRequiredField, TypeFields.Subject));
-                errorCount++;
-            }
-            if (!__has_message)
-            {
-                if (onError != null) onError(new global::NClassify.Library.ValidationError(TypeFields.Message, global::NClassify.Library.ResourceMessages.MissingRequiredField, TypeFields.Message));
-                errorCount++;
-            }
+            if (__has_subject && !IsValidSubject(__fld_subject, onError)) errorCount++;
+            if (__has_message && !IsValidMessage(__fld_message, onError)) errorCount++;
             return errorCount;
         }
         public IInvoiceEmailRequest AsReadOnly()
