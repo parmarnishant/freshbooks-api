@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NClassify xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xsi:noNamespaceSchemaLocation="NClassifyConfig.xsd">
+  <!-- Includes -->
+  <settings src="Common.xml" />
+  <import file="Common.xml" />
+  <!-- Event Type -->
+  <value base="string" name="event_type">
+    <validation>
+      <predefined>
+        <value>all</value>
+        <value>category</value>
+        <value>category.create</value>
+        <value>category.delete</value>
+        <value>category.update</value>
+        <value>client</value>
+        <value>client.create</value>
+        <value>client.delete</value>
+        <value>client.update</value>
+        <value>estimate</value>
+        <value>estimate.create</value>
+        <value>estimate.delete</value>
+        <value>estimate.sendByEmail</value>
+        <value>estimate.update</value>
+        <value>expense</value>
+        <value>expense.create</value>
+        <value>expense.delete</value>
+        <value>expense.update</value>
+        <value>invoice</value>
+        <value>invoice.create</value>
+        <value>invoice.delete</value>
+        <value>invoice.dispute</value>
+        <value>invoice.pastdue.1</value>
+        <value>invoice.pastdue.2</value>
+        <value>invoice.pastdue.3</value>
+        <value>invoice.sendByEmail</value>
+        <value>invoice.sendBySnailMail</value>
+        <value>invoice.update</value>
+        <value>item</value>
+        <value>item.create</value>
+        <value>item.delete</value>
+        <value>item.update</value>
+        <value>payment</value>
+        <value>payment.create</value>
+        <value>payment.delete</value>
+        <value>payment.update</value>
+        <value>project</value>
+        <value>project.create</value>
+        <value>project.delete</value>
+        <value>project.update</value>
+        <value>recurring</value>
+        <value>recurring.create</value>
+        <value>recurring.delete</value>
+        <value>recurring.update</value>
+        <value>staff</value>
+        <value>staff.create</value>
+        <value>staff.delete</value>
+        <value>staff.update</value>
+        <value>task</value>
+        <value>task.create</value>
+        <value>task.delete</value>
+        <value>task.update</value>
+        <value>time_entry</value>
+        <value>time_entry.create</value>
+        <value>time_entry.delete</value>
+        <value>time_entry.update</value>
+      </predefined>
+    </validation>
+  </value>
+  <!-- Messages -->
+  <message name="CallbackIdentity">
+    <fields>
+      <value name="callback_id" ordinal="1" use="required" type="callback_id" />
+    </fields>
+  </message>
+  <message name="Callback">
+    <fields>
+      <value name="callback_id" ordinal="4" type="callback_id" direction="read-only" />
+      <value name="uri" ordinal="5" type="url" />
+      <value name="event" ordinal="6" type="event_type" />
+      <primitive name="verified" ordinal="7" type="bool" />
+    </fields>
+  </message>
+  <message name="CallbackRequest">
+    <fields>
+      <message name="callback" ordinal="1" type="Callback" use="required" />
+    </fields>
+  </message>
+  <message name="CallbackVerify">
+    <fields>
+      <value name="callback_id" ordinal="4" type="callback_id" use="required" />
+      <primitive name="verifier" ordinal="5" type="string" use="required" />
+    </fields>
+  </message>
+  <message name="CallbackVerifyRequest">
+    <fields>
+      <message name="callback" ordinal="1" type="CallbackVerify" use="required" />
+    </fields>
+  </message>
+  <message name="Callbacks" inherits="PaginatedResponse">
+    <fields>
+      <message name="callback" ordinal="10" array="true" type="Callback" use="required" direction="read-only" />
+    </fields>
+  </message>
+  <message name="CallbacksResponse">
+    <fields>
+      <message name="callbacks" ordinal="1" type="Callbacks" use="required" direction="read-only" />
+    </fields>
+  </message>
+  <message name="CallbacksRequest" inherits="PaginatedRequest">
+    <fields>
+      <value name="event" ordinal="10" type="event_type" />
+      <value name="uri" ordinal="11" type="url" />
+    </fields>
+  </message>
+  <service name="CallbackService">
+    <method name="create" returns="CallbackIdentity" argument="CallbackRequest" />
+    <method name="verify" argument="CallbackVerifyRequest" />
+    <method name="resendToken" argument="CallbackIdentity" />
+    <method name="list" returns="CallbacksResponse" argument="CallbacksRequest" />
+    <method name="delete" argument="CallbackIdentity" />
+  </service>
+</NClassify>

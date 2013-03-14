@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NClassify xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xsi:noNamespaceSchemaLocation="NClassifyConfig.xsd">
+  <!-- Includes -->
+  <settings src="Common.xml" />
+  <!-- Non-Generated type defined in _partial_classes.cs -->
+  <value name="RecurringFrequency" base="string">
+  </value>
+</NClassify>

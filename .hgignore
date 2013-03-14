@@ -1,0 +1,25 @@
+
+syntax: glob
+
+_ReSharper.*
+obj
+bin
+Bin
+Debug
+Release
+*.user
+*.pdb
+*.suo
+*.sln
+*.cache
+*.vspscc
+*.log
+*.ncb
+*.pch
+*.sdf
+*.zip
+*.mdf
+*.snk
+*.bat
+
+TestResults

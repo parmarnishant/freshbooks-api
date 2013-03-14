@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NClassify xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xsi:noNamespaceSchemaLocation="NClassifyConfig.xsd">
+  <!-- Includes -->
+  <settings src="Common.xml" />
+  <import file="Common.xml" />
+  <!-- Messages -->
+  <message name="PaymentIdentity">
+    <fields>
+      <value name="payment_id" ordinal="1" use="required" type="payment_id" />
+    </fields>
+  </message>
+  <message name="GatewayTransaction">
+    <fields>
+      <primitive name="reference_id" ordinal="1" type="string" use="required" direction="read-only"/>
+      <primitive name="gateway_name" ordinal="2" type="string" use="required" direction="read-only"/>
+    </fields>
+  </message>
+  <message name="Payment" inherits="PaymentUpdate">
+    <fields>
+      <value name="client_id" ordinal="2" type="client_id" />
+    </fields>
+  </message>
+  <message name="PaymentUpdate">
+    <fields>
+      <value name="payment_id" ordinal="1" type="payment_id" />
+      <value name="invoice_id" ordinal="3" type="invoice_id" />
+
+      <primitive name="date" ordinal="10" type="dateTime" />
+      <primitive name="amount" ordinal="11" type="double" />
+      <value name="currency_code" ordinal="12" type="currency_code" />
+      <primitive name="type" ordinal="13" type="string" />
+      <primitive name="notes" ordinal="14" type="string" />
+
+      <primitive name="updated" ordinal="21" type="dateTime" direction="read-only" />
+      <message name="gateway_transaction" ordinal="22" type="GatewayTransaction" direction="read-only" />
+    </fields>
+  </message>
+  <message name="PaymentRequest">
+    <fields>
+      <message name="payment" ordinal="1" use="required" type="Payment" />
+    </fields>
+  </message>
+  <message name="PaymentUpdateRequest">
+    <fields>
+      <message name="payment" ordinal="1" use="required" type="PaymentUpdate" />
+    </fields>
+  </message>
+  <message name="PaymentResponse">
+    <fields>
+      <message name="payment" ordinal="1" use="required" type="Payment" />
+    </fields>
+  </message>
+  <message name="Payments" inherits="PaginatedResponse">
+    <fields>
+      <message name="payment" ordinal="10" array="true" type="Payment" direction="read-only" />
+    </fields>
+  </message>
+  <message name="PaymentsResponse">
+    <fields>
+      <message name="payments" ordinal="1" use="required" type="Payments" direction="read-only" />
+    </fields>
+  </message>
+  <message name="PaymentsRequest" inherits="PaginatedRequest">
+    <fields>
+      <value name="client_id" ordinal="10" type="client_id" />
+      <value name="invoice_id" ordinal="11" type="invoice_id" />
+      
+      <primitive name="date_from" ordinal="12" type="dateTime" />
+      <primitive name="date_to" ordinal="13" type="dateTime" />
+      <primitive name="updated_from" ordinal="14" type="dateTime" />
+      <primitive name="updated_to" ordinal="15" type="dateTime" />
+    </fields>
+  </message>
+  <service name="PaymentService">
+    <method name="create" returns="PaymentIdentity" argument="PaymentRequest" />
+    <method name="update" argument="PaymentUpdateRequest" />
+    <method name="get" returns="PaymentResponse" argument="PaymentIdentity" />
+    <method name="delete" argument="PaymentIdentity" />
+    <method name="list" returns="PaymentsResponse" argument="PaymentsRequest" />
+  </service>
+</NClassify>

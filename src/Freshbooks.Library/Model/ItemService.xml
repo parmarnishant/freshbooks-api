@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NClassify xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xsi:noNamespaceSchemaLocation="NClassifyConfig.xsd">
+  <!-- Includes -->
+  <settings src="Common.xml" />
+  <import file="Common.xml" />
+  <!-- Messages -->
+  <message name="ItemIdentity">
+    <fields>
+      <value name="item_id" ordinal="1" use="required" type="item_id" />
+    </fields>
+  </message>
+  <message name="Item">
+    <fields>
+      <value name="item_id" ordinal="1" type="item_id" />
+      <primitive name="name" ordinal="10" type="string" use="required" />
+      <primitive name="description" ordinal="11" type="string" />
+      <primitive name="unit_cost" ordinal="21" type="double" />
+      <primitive name="quantity" ordinal="22" type="double" />
+      <primitive name="inventory" ordinal="23" type="double" />
+      <value name="folder" ordinal="24" type="folder_type" direction="read-only" />
+    </fields>
+  </message>
+  <message name="ItemRequest">
+    <fields>
+      <message name="item" ordinal="1" use="required" type="Item" />
+    </fields>
+  </message>
+  <message name="ItemResponse">
+    <fields>
+      <message name="item" ordinal="1" use="required" type="Item" />
+    </fields>
+  </message>
+  <message name="Items" inherits="PaginatedResponse">
+    <fields>
+      <message name="item" ordinal="10" array="true" type="Item" direction="read-only" />
+    </fields>
+  </message>
+  <message name="ItemsResponse">
+    <fields>
+      <message name="items" ordinal="1" use="required" type="Items" direction="read-only" />
+    </fields>
+  </message>
+  <message name="ItemsRequest" inherits="PaginatedRequest">
+    <fields>
+      <value name="folder" ordinal="10" type="folder_type" />
+    </fields>
+  </message>
+  <service name="ItemService">
+    <method name="create" returns="ItemIdentity" argument="ItemRequest" />
+    <method name="update" argument="ItemRequest" />
+    <method name="get" returns="ItemResponse" argument="ItemIdentity" />
+    <method name="delete" argument="ItemIdentity" />
+    <method name="list" returns="ItemsResponse" argument="ItemsRequest" />
+  </service>
+</NClassify>

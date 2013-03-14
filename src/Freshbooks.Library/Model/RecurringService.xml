@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NClassify xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xsi:noNamespaceSchemaLocation="NClassifyConfig.xsd">
+  <!-- Includes -->
+  <settings src="Common.xml" />
+  <import file="Common.xml" />
+  <import file="RecurringTypes.xml" />
+  <!-- Messages -->
+  <message name="RecurringIdentity">
+    <fields>
+      <value name="recurring_id" ordinal="1" use="required" type="recurring_id" />
+    </fields>
+  </message>
+  <message name="Recurring" inherits="ClientBill">
+    <fields>
+      <value name="recurring_id" ordinal="1" type="recurring_id" />
+
+      <primitive name="date" ordinal="21" type="dateTime">
+        <xml-options format="yyyy-MM-dd"/>
+      </primitive>
+      
+      <primitive name="occurrences" ordinal="100" type="int32">
+        <validation><range min="0"/></validation>
+      </primitive>
+      <primitive name="stopped" ordinal="101" type="bool"/>
+
+      <value name="frequency" ordinal="102" type="RecurringFrequency" />
+
+      <message name="autobill" ordinal="110" type="AutoBilling" />
+      <primitive name="send_email" ordinal="111" type="bool" />
+      <primitive name="send_snail_mail" ordinal="112" type="bool" />
+
+      <primitive name="return_uri" ordinal="121" type="string" />
+      <primitive name="updated" ordinal="122" type="dateTime" direction="read-only"/>
+    </fields>
+  </message>
+
+  <message name="AutoBilling">
+    <fields>
+      <primitive name="gateway_name" ordinal="1" type="string" use="required" />
+      <message name="card" ordinal="2" type="CardInfo" use="required" />
+    </fields>
+  </message>
+  <message name="CardInfo">
+    <fields>
+      <primitive name="name" ordinal="1" type="string" use="required" />
+      <primitive name="number" ordinal="2" type="string" use="required" />
+      <message name="expiration" ordinal="3" type="CardExpiration" use="required" />
+    </fields>
+  </message>
+  <message name="CardExpiration">
+    <fields>
+      <primitive name="month" ordinal="1" type="int32" use="required">
+        <validation><range min="1" max="12" /></validation>
+      </primitive>
+      <primitive name="year" ordinal="2" type="int32" use="required">
+        <validation><range min="1900" max="2999" /></validation>
+      </primitive>
+    </fields>
+  </message>
+
+  <message name="RecurringLines">
+    <fields>
+      <value name="recurring_id" ordinal="1" type="recurring_id" />
+      <message name="lines" ordinal="52" type="LineItems" />
+    </fields>
+  </message>
+  <message name="RecurringLineIds">
+    <fields>
+      <value name="recurring_id" ordinal="1" type="recurring_id" />
+      <value name="line_id" array="true" ordinal="2" type="line_id" />
+    </fields>
+  </message>
+  <message name="RecurringRequest">
+    <fields>
+      <message name="recurring" ordinal="1" type="Recurring" use="required" />
+    </fields>
+  </message>
+  <message name="RecurringResponse">
+    <fields>
+      <message name="recurring" ordinal="1" type="Recurring" use="required" direction="read-only" />
+    </fields>
+  </message>
+  <message name="Recurrings" inherits="PaginatedResponse">
+    <fields>
+      <message name="recurring" ordinal="10" array="true" type="Recurring" direction="read-only" />
+    </fields>
+  </message>
+  <message name="RecurringsResponse">
+    <fields>
+      <message name="recurrings" ordinal="1" type="Recurrings" use="required" direction="read-only" />
+    </fields>
+  </message>
+  <message name="RecurringsRequest" inherits="PaginatedRequest">
+    <fields>
+      <value name="client_id" ordinal="10" type="client_id" />
+      <primitive name="autobill" ordinal="11" type="bool" />
+      <value name="folder" ordinal="12" type="folder_type" />
+
+      <primitive name="date_from" ordinal="13" type="dateTime" />
+      <primitive name="date_to" ordinal="14" type="dateTime" />
+      <primitive name="updated_from" ordinal="15" type="dateTime" />
+      <primitive name="updated_to" ordinal="16" type="dateTime" />
+    </fields>
+  </message>
+  <message name="RecurringEmailRequest">
+    <fields>
+      <value name="recurring_id" ordinal="1" use="required" type="recurring_id" />
+      <primitive name="subject" ordinal="2" use="required" type="string" />
+      <primitive name="message" ordinal="3" use="required" type="string" />
+    </fields>
+  </message>
+  <service name="RecurringService">
+    <method name="create" returns="RecurringIdentity" argument="RecurringRequest" />
+    <method name="update" argument="RecurringRequest" />
+    <method name="get" returns="RecurringResponse" argument="RecurringIdentity" />
+    <method name="delete" argument="RecurringIdentity" />
+    <method name="list" returns="RecurringsResponse" argument="RecurringsRequest" />
+    
+    <method name="lines.add" returns="RecurringLineIds" argument="RecurringLines"/>
+    <method name="lines.update" argument="RecurringLines"/>
+    <method name="lines.delete" argument="RecurringLineIds"/>
+  </service>
+</NClassify>

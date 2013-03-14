@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NClassify xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xsi:noNamespaceSchemaLocation="NClassifyConfig.xsd">
+  <!-- Includes -->
+  <settings src="Common.xml" />
+  <import file="Common.xml" />
+  <!-- Messages -->
+  <message name="InvoiceIdentity">
+    <fields>
+      <value name="invoice_id" ordinal="1" use="required" type="invoice_id" />
+    </fields>
+  </message>
+  <message name="Invoice" inherits="ClientBill">
+    <fields>
+      <value name="invoice_id" ordinal="1" type="invoice_id" />
+
+      <primitive name="date" ordinal="21" type="dateTime" />
+      <primitive name="amount_outstanding" ordinal="101" type="double" direction="read-only" />
+      <primitive name="return_uri" ordinal="102" type="string" />
+      <value name="recurring_id" ordinal ="103" type="recurring_id" direction="read-only" />
+      <primitive name="updated" ordinal="104" type="dateTime" direction="read-only"/>
+    </fields>
+  </message>
+  <message name="InvoiceLines">
+    <fields>
+      <value name="invoice_id" ordinal="1" type="invoice_id" />
+      <message name="lines" ordinal="2" type="LineItems" />
+    </fields>
+  </message>
+  <message name="InvoiceLineIds">
+    <fields>
+      <value name="invoice_id" ordinal="1" type="invoice_id" />
+      <value name="line_id" array="true" ordinal="2" type="line_id" />
+    </fields>
+  </message>
+  <message name="InvoiceRequest">
+    <fields>
+      <message name="invoice" ordinal="1" type="Invoice" use="required" />
+    </fields>
+  </message>
+  <message name="InvoiceResponse">
+    <fields>
+      <message name="invoice" ordinal="1" type="Invoice" use="required" direction="read-only" />
+    </fields>
+  </message>
+  <message name="Invoices" inherits="PaginatedResponse">
+    <fields>
+      <message name="invoice" ordinal="10" array="true" type="Invoice" direction="read-only" />
+    </fields>
+  </message>
+  <message name="InvoicesResponse">
+    <fields>
+      <message name="invoices" ordinal="1" type="Invoices" use="required" direction="read-only" />
+    </fields>
+  </message>
+  <message name="InvoicesRequest" inherits="PaginatedRequest">
+    <fields>
+      <value name="client_id" ordinal="10" type="client_id" />
+      <value name="recurring_id" ordinal="11" type="recurring_id" />
+      <primitive name="status" ordinal="12" type="string" />
+      <primitive name="number" ordinal="13" type="string" />
+      
+      <primitive name="date_from" ordinal="14" type="dateTime" />
+      <primitive name="date_to" ordinal="15" type="dateTime" />
+      <primitive name="updated_from" ordinal="16" type="dateTime" />
+      <primitive name="updated_to" ordinal="17" type="dateTime" />
+
+      <value name="folder" ordinal="18" type="folder_type" />
+    </fields>
+  </message>
+  <message name="InvoiceEmailRequest">
+    <fields>
+      <value name="invoice_id" ordinal="1" use="required" type="invoice_id" />
+      <primitive name="subject" ordinal="2" type="string" />
+      <primitive name="message" ordinal="3" type="string" />
+    </fields>
+  </message>
+  <service name="InvoiceService">
+    <method name="create" returns="InvoiceIdentity" argument="InvoiceRequest" />
+    <method name="update" argument="InvoiceRequest" />
+    <method name="get" returns="InvoiceResponse" argument="InvoiceIdentity" />
+    <method name="delete" argument="InvoiceIdentity" />
+    <method name="list" returns="InvoicesResponse" argument="InvoicesRequest" />
+    
+    <method name="sendByEmail" argument="InvoiceEmailRequest" />
+    <method name="sendBySnailMail" argument="InvoiceIdentity" />
+    
+    <method name="lines.add" returns="InvoiceLineIds" argument="InvoiceLines"/>
+    <method name="lines.update" argument="InvoiceLines"/>
+    <method name="lines.delete" argument="InvoiceLineIds"/>
+  </service>
+</NClassify>

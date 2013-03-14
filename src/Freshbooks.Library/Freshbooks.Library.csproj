@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2F370A7B-8B5B-4E27-A2CC-87F8333825DA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Freshbooks.Library</RootNamespace>
+    <AssemblyName>Freshbooks.Library</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkSubset>
+    </TargetFrameworkSubset>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\depend\NClassify.Generator\content\ByteArray.cs">
+      <Link>NClassify\ByteArray.cs</Link>
+    </Compile>
+    <Compile Include="..\..\depend\NClassify.Generator\content\EmptyMessage.cs">
+      <Link>NClassify\EmptyMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\..\depend\NClassify.Generator\content\Interfaces.cs">
+      <Link>NClassify\Interfaces.cs</Link>
+    </Compile>
+    <Compile Include="..\..\depend\NClassify.Generator\content\ResourceMessages.cs">
+      <Link>NClassify\ResourceMessages.cs</Link>
+    </Compile>
+    <Compile Include="..\..\depend\NClassify.Generator\content\TypeConverter.cs">
+      <Link>NClassify\TypeConverter.cs</Link>
+    </Compile>
+    <Compile Include="EventArgs.cs" />
+    <Compile Include="FreshbooksApi.cs" />
+    <Compile Include="Model\CallbackService.Generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CallbackService.xml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\CategoryService.Generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CategoryService.xml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ClientService.Generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClientService.xml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Common.Generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Common.xml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\EstimateService.Generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EstimateService.xml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\GatewayService.Generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GatewayService.xml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\InvoiceService.Generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InvoiceService.xml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\PaymentService.Generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PaymentService.xml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ProjectService.Generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProjectService.xml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\RecurringService.Generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RecurringService.xml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\_partial_classes.cs" />
+    <Compile Include="Model\TaxService.Generated.cs">
+      <DependentUpon>TaxService.xml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Model\TaskService.Generated.cs">
+      <DependentUpon>TaskService.xml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Model\LanguageService.Generated.cs">
+      <DependentUpon>LanguageService.xml</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Model\ExpenseService.Generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExpenseService.xml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ItemService.Generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ItemService.xml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\StaffService.Generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StaffService.xml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SystemService.Generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SystemService.xml</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TimeEntryService.Generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TimeEntryService.xml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceProxy.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\depend\NClassify.Generator\content\NClassify.resx">
+      <Link>NClassify\NClassify.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>CmdTool</Generator>
+      <LastGenOutput>Resources.Generated.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\CallbackService.xml">
+      <Generator>CmdTool</Generator>
+      <LastGenOutput>CallbackService.Generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\CategoryService.xml">
+      <Generator>CmdTool</Generator>
+      <LastGenOutput>CategoryService.Generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\ClientService.xml">
+      <Generator>CmdTool</Generator>
+      <LastGenOutput>ClientService.Generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\Common.xml">
+      <Generator>CmdTool</Generator>
+      <LastGenOutput>Common.Generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\RecurringTypes.xml">
+    </Content>
+    <Content Include="Model\ProjectService.xml">
+      <Generator>CmdTool</Generator>
+      <LastGenOutput>ProjectService.Generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\RecurringService.xml">
+      <Generator>CmdTool</Generator>
+      <LastGenOutput>RecurringService.Generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\TimeEntryService.xml">
+      <Generator>CmdTool</Generator>
+      <LastGenOutput>TimeEntryService.Generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\TaxService.xml">
+      <Generator>CmdTool</Generator>
+      <LastGenOutput>TaxService.Generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\TaskService.xml">
+      <Generator>CmdTool</Generator>
+      <LastGenOutput>TaskService.Generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\PaymentService.xml">
+      <Generator>CmdTool</Generator>
+      <LastGenOutput>PaymentService.Generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\LanguageService.xml">
+      <Generator>CmdTool</Generator>
+      <LastGenOutput>LanguageService.Generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\EstimateService.xml">
+      <Generator>CmdTool</Generator>
+      <LastGenOutput>EstimateService.Generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\ExpenseService.xml">
+      <Generator>CmdTool</Generator>
+      <LastGenOutput>ExpenseService.Generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\GatewayService.xml">
+      <Generator>CmdTool</Generator>
+      <LastGenOutput>GatewayService.Generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\InvoiceService.xml">
+      <Generator>CmdTool</Generator>
+      <LastGenOutput>InvoiceService.Generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\ItemService.xml">
+      <Generator>CmdTool</Generator>
+      <LastGenOutput>ItemService.Generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\StaffService.xml">
+      <Generator>CmdTool</Generator>
+      <LastGenOutput>StaffService.Generated.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\SystemService.xml">
+      <Generator>CmdTool</Generator>
+      <LastGenOutput>SystemService.Generated.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PreBuildEvent>xcopy /d /y E:\Projects\nclassify\src\NClassify.Generator\NClassifyConfig.xsd $(ProjectDir)Model &gt; NUL</PreBuildEvent>
+  </PropertyGroup>
+</Project>

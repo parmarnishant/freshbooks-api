@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NClassify xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+           xsi:noNamespaceSchemaLocation="NClassifyConfig.xsd">
+  <!-- Includes -->
+  <settings src="Common.xml" />
+  <import file="Common.xml" />
+  <!-- Messages -->
+  <message name="TaskIdentity">
+    <fields>
+      <value name="task_id" ordinal="1" use="required" type="task_id" />
+    </fields>
+  </message>
+  <message name="Task">
+    <fields>
+      <value name="task_id" ordinal="1" type="task_id" />
+      <primitive name="name" ordinal="10" type="string" use="required" />
+      <primitive name="description" ordinal="11" type="string" />
+      <primitive name="billable" ordinal="21" type="bool" />
+      <primitive name="rate" ordinal="22" type="double" />
+    </fields>
+  </message>
+  <message name="TaskRequest">
+    <fields>
+      <message name="task" ordinal="1" use="required" type="Task" />
+    </fields>
+  </message>
+  <message name="TaskResponse">
+    <fields>
+      <message name="task" ordinal="1" use="required" type="Task" />
+    </fields>
+  </message>
+  <message name="Tasks" inherits="PaginatedResponse">
+    <fields>
+      <message name="task" ordinal="10" array="true" type="Task" direction="read-only" />
+    </fields>
+  </message>
+  <message name="TasksResponse">
+    <fields>
+      <message name="tasks" ordinal="1" use="required" type="Tasks" direction="read-only" />
+    </fields>
+  </message>
+  <message name="TasksRequest" inherits="PaginatedRequest">
+    <fields>
+      <value name="project_id" ordinal="10" type="project_id" />
+    </fields>
+  </message>
+  <service name="TaskService">
+    <method name="create" returns="TaskIdentity" argument="TaskRequest" />
+    <method name="update" argument="TaskRequest" />
+    <method name="get" returns="TaskResponse" argument="TaskIdentity" />
+    <method name="delete" argument="TaskIdentity" />
+    <method name="list" returns="TasksResponse" argument="TasksRequest" />
+  </service>
+</NClassify>
