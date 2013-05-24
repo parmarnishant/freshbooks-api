@@ -201,6 +201,26 @@ namespace Freshbooks.Library
                 oauth_token_secret = nvc["oauth_token_secret"];
             }
         }
+		
+		/// <summary>
+		/// Sets the legacy user-specific token found on the user's My Account -> Freshbooks API page
+		/// <summary>
+		/// <remarks>This is an alternative to the UseLegacyToken method</remarks>
+		///
+		
+		public string LegacyToken{
+			private get
+			{
+				return user_token;
+			}
+			set
+			{
+				user_token = value;
+				req_token = null;
+				oauth_token = null;
+				oauth_token_secret = null;
+			}
+		}
 
         private long Timestamp
         {
